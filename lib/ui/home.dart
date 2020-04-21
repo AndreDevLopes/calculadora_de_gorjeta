@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../util/hexcolor.dart';
 
 class BillSplitter extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class _BillSplitterState extends State<BillSplitter> {
   int _tipPercentage = 0;
   int _personCounter = 1;
   double _billAmount = 0.0;
+  Color _purple = HexColor("#6908D6");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,12 +27,46 @@ class _BillSplitterState extends State<BillSplitter> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                      color: Colors.purpleAccent.shade100,
+                      color: _purple
+                          .withOpacity(0.1), //Colors.purpleAccent.shade100,
                       borderRadius: BorderRadius.circular(12.0)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[Text("Total por pessoa"), Text("123")],
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Total por pessoa"),
+                        Text("\$123")
+                      ],
+                    ),
                   ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20.0),
+                  padding: EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: Colors.blueAccent.shade100,
+                        style: BorderStyle.solid,
+                      ),
+                      borderRadius: BorderRadius.circular(12.0)),
+                  child: Column(children: <Widget>[
+                    TextField(
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      style: TextStyle(color: Colors.grey),
+                      decoration: InputDecoration(
+                          prefixText: "valor da conta:",
+                          prefixIcon: Icon(Icons.attach_money)),
+                      onChanged: (String value) {
+                        try {
+                          _billAmount = double.parse(value);
+                        } catch (exception) {
+                          _billAmount = 0.0;
+                        }
+                      },
+                    )
+                  ]),
                 )
               ],
             )));
