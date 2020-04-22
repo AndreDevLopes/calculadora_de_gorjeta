@@ -34,8 +34,23 @@ class _BillSplitterState extends State<BillSplitter> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("Total por pessoa"),
-                        Text("\$123")
+                        Text(
+                          "Total Por Pessoa",
+                          style: TextStyle(
+                              color: _purple,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              "\$123",
+                              style: TextStyle(
+                                color: _purple,
+                                fontSize: 34.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ))
                       ],
                     ),
                   ),
@@ -152,7 +167,30 @@ class _BillSplitterState extends State<BillSplitter> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    //slider
+                    Column(children: <Widget>[
+                      Text(
+                        "$_tipPercentage %",
+                        style: TextStyle(
+                          color: _purple,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17.0,
+                        ),
+                      ),
+                      Slider(
+                          min: 0,
+                          max: 100,
+                          activeColor: _purple,
+                          inactiveColor: Colors.grey,
+                          divisions: 10,
+                          value: _tipPercentage.toDouble(),
+                          onChanged: (double newvalue) {
+                            setState(() {
+                              _tipPercentage = newvalue.round();
+                            });
+                          })
+                    ])
                   ]),
                 )
               ],
